@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grafik Data Kos Madiun</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Grafik Data Kos Madiun</h1>
+    <p><a href="{% url 'index' %}">← Kembali ke prediksi</a></p>
+    {% for chart in charts %}
+    <div>{{ chart|safe }}</div>
+    {% endfor %}
+</body>
+
+</html>

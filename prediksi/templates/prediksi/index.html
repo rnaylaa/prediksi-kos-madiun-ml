@@ -1,0 +1,1048 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Kos Madiun - ML Analytics</title>
+    <style>
+        .hero-header {
+            text-align: center;
+            padding: 24px 20px 36px 20px;
+            max-width: 800px;
+            margin: 0 auto 28px auto;
+        }
+
+        .hero-pill-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #F3FDE8;
+            color: #3F6212;
+            border: 1px solid #D9F99D;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 99px;
+            margin-bottom: 12px;
+        }
+
+        .hero-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--secondary-accent);
+            letter-spacing: -0.8px;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+        }
+
+        .hero-title span {
+            color: #3F6212;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin: 0 auto 20px auto;
+            max-width: 620px;
+            line-height: 1.6;
+        }
+
+        .hero-badges-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface-card);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--secondary-accent);
+            padding: 8px 18px;
+            border-radius: 99px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 2px 8px rgba(20, 26, 21, 0.03);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-accent);
+        }
+
+        .ai-insight-box {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #F3FDE8;
+            border-left: 3px solid var(--primary-accent);
+            border-radius: 8px;
+            font-size: 0.84rem;
+            color: var(--secondary-accent);
+            line-height: 1.45;
+        }
+
+        .ai-insight-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 700;
+            color: #3F6212;
+            margin-right: 6px;
+        }
+
+        :root {
+            --bg-main: #F6F8F5;
+            --surface-card: #FFFFFF;
+            --surface-secondary: #F4F5F7;
+            --primary-accent: #9EF01A;
+            --primary-accent-hover: #8DE414;
+            --secondary-accent: #141A15;
+            --text-secondary: #6E746F;
+            --border-subtle: #E5E7EB;
+            --badge-ac-bg: #EAFCD6;
+            --badge-ac-text: #3F6212;
+            --badge-no-bg: #F4F5F7;
+            --badge-no-text: #6E746F;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--secondary-accent);
+            max-width: 1240px;
+            margin: 32px auto;
+            padding: 0 24px;
+            line-height: 1.5;
+
+            /* LATAR BELAKANG AURORA MESH (MULUS, TANPA TITIK/DOTTED) */
+            background-color: #F5F7F4;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(158, 240, 26, 0.18) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(52, 211, 153, 0.14) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(158, 240, 26, 0.12) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.10) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Top Bar */
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface-card);
+            padding: 16px 28px;
+            border-radius: 20px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 2px 12px rgba(20, 26, 21, 0.03);
+            margin-bottom: 24px;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-title h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-pill {
+            background: var(--surface-secondary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 99px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* Dashboard Top Grid: 2 Kolom */
+        .dashboard-top-grid {
+            display: grid;
+            grid-template-columns: 390px 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+            align-items: start;
+            width: 100%;
+        }
+
+        @media (max-width: 960px) {
+            .dashboard-top-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface-card);
+            border-radius: 20px;
+            padding: 26px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 18px rgba(20, 26, 21, 0.03);
+            width: 100%;
+        }
+
+        .section-header {
+            margin-bottom: 18px;
+        }
+
+        .section-header h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            color: var(--secondary-accent);
+        }
+
+        .section-header p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* Highlight Hasil Prediksi */
+        .hasil-highlight-box {
+            background: #FFFFFF;
+            border: 2px solid var(--primary-accent);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 14px rgba(158, 240, 26, 0.15);
+        }
+
+        .hasil-highlight-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hasil-highlight-nominal {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--secondary-accent);
+            margin: 2px 0 0 0;
+            letter-spacing: -0.5px;
+        }
+
+        .badge-ml-model {
+            background: var(--surface-secondary);
+            color: var(--secondary-accent);
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 99px;
+            border: 1px solid var(--border-subtle);
+            white-space: nowrap;
+        }
+
+        /* Form Controls */
+        label {
+            display: block;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--secondary-accent);
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .value-badge {
+            background: var(--surface-secondary);
+            color: var(--secondary-accent);
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-subtle);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 7px;
+            border-radius: 8px;
+            background: var(--surface-secondary);
+            outline: none;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-accent);
+            border: 2px solid var(--secondary-accent);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        /* Segmented Toggle AC */
+        .segmented-group {
+            display: inline-flex;
+            background: var(--surface-secondary);
+            border-radius: 12px;
+            padding: 3px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .segmented-group label {
+            margin: 0 !important;
+            cursor: pointer;
+        }
+
+        .segmented-group input[type="radio"] {
+            display: none;
+        }
+
+        .segmented-group span {
+            display: block;
+            padding: 7px 32px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-radius: 9px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .segmented-group input[type="radio"]:checked + span {
+            background-color: var(--secondary-accent);
+            color: #FFFFFF;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--surface-secondary);
+            border: 1px solid transparent;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--secondary-accent);
+            outline: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--primary-accent);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(158, 240, 26, 0.25);
+        }
+
+        .btn-prediksi {
+            margin-top: 20px;
+            width: 100%;
+            padding: 13px 20px;
+            background: var(--primary-accent);
+            color: var(--secondary-accent);
+            font-size: 0.96rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-prediksi:hover {
+            background: var(--primary-accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Tables & Sortable Headers */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+            background: var(--surface-card);
+        }
+
+        .table-rekomendasi thead tr {
+            background: var(--surface-secondary);
+            color: var(--secondary-accent);
+        }
+
+        .table-semua thead tr {
+            background: var(--secondary-accent);
+            color: #FFFFFF;
+        }
+
+        th {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.15s ease;
+            white-space: nowrap;
+        }
+
+        th:hover {
+            background-color: #E2E8F0 !important;
+        }
+
+        .table-semua th:hover {
+            background-color: #263328 !important;
+        }
+
+        .sort-icon {
+            font-size: 0.75rem;
+            margin-left: 6px;
+            opacity: 0.45;
+            display: inline-block;
+        }
+
+        th[data-sort="asc"] .sort-icon,
+        th[data-sort="desc"] .sort-icon {
+            opacity: 1;
+            color: var(--primary-accent);
+            font-weight: bold;
+        }
+
+        td {
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: background 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background: #F3FDE8 !important;
+        }
+
+        .badge-ac-ya {
+            background: var(--badge-ac-bg);
+            color: var(--badge-ac-text);
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .badge-ac-tidak {
+            background: var(--badge-no-bg);
+            color: var(--badge-no-text);
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .star-rating {
+            color: #F59E0B;
+            font-weight: 700;
+        }
+
+        /* Section Grafik 2x2 */
+        .charts-section {
+            margin-bottom: 32px;
+            width: 100%;
+        }
+
+        .charts-dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .charts-dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-box {
+            background: var(--surface-card);
+            border-radius: 18px;
+            padding: 16px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 16px rgba(20, 26, 21, 0.03);
+            width: 100%;
+        }
+
+                /* HEADER NAVBAR MODERN */
+        .header-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface-card);
+            padding: 18px 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 20px rgba(20, 26, 21, 0.04);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon-box {
+            width: 46px;
+            height: 46px;
+            background: var(--primary-accent);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(158, 240, 26, 0.35);
+        }
+
+        .brand-text h1 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 0;
+            color: var(--secondary-accent);
+            letter-spacing: -0.4px;
+        }
+
+        .brand-text p {
+            margin: 2px 0 0 0;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .header-badges {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface-secondary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--secondary-accent);
+            padding: 6px 14px;
+            border-radius: 99px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-accent);
+        }
+
+        /* FOOTER ELEGAN */
+        .footer-card {
+            background: var(--surface-card);
+            border-radius: 20px;
+            padding: 32px 30px 24px 30px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 20px rgba(20, 26, 21, 0.03);
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 800px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .footer-col h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--secondary-accent);
+            margin: 0 0 10px 0;
+        }
+
+        .footer-col p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .footer-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tech-tag {
+            background: var(--surface-secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--secondary-accent);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+                /* SMOOTH SCROLLING */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ANIMASI SCROLL REVEAL (FADE IN + FLOAT UP) */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+                /* EFEK MENUMPUK (STACKING CARDS EFFECT) */
+        .stack-layer {
+            position: sticky;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                        filter 0.35s ease, 
+                        opacity 0.35s ease;
+            will-change: transform, filter, opacity;
+        }
+
+        /* Lapisan 1: Form & Rekomendasi (Paling Bawah) */
+        .stack-layer-1 {
+            top: 20px;
+            z-index: 10;
+            margin-bottom: 40px;
+        }
+
+        /* Lapisan 2: Bagian 4 Grafik (Menumpuk di atas Lapisan 1) */
+        .stack-layer-2 {
+            top: 32px;
+            z-index: 20;
+            margin-bottom: 40px;
+            background: var(--bg-main);
+            padding: 16px 8px 24px 8px;
+            border-radius: 24px;
+            box-shadow: 0 -14px 32px rgba(20, 26, 21, 0.08);
+        }
+
+        /* Lapisan 3: Tabel Semua Data (Menumpuk di atas Grafik) */
+        .stack-layer-3 {
+            top: 44px;
+            z-index: 30;
+            margin-bottom: 40px;
+            box-shadow: 0 -18px 40px rgba(20, 26, 21, 0.12), 
+                        0 4px 20px rgba(20, 26, 21, 0.04);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HERO HEADER CENTER (SESUAI GAMBAR REFERENSI) -->
+    <header class="hero-header">
+        <div class="hero-pill-top">
+            ✨ Machine Learning Housing Platform
+        </div>
+        <h1 class="hero-title">
+            KosMadiun<span>.ai</span>
+        </h1>
+        <p class="hero-subtitle">
+            Sistem rekomendasi dan estimasi tarif sewa kos mahasiswa di Kota Madiun berbasis Machine Learning dan AI Analytics.
+        </p>
+        <div class="hero-badges-center">
+            <div class="status-pill">
+                <span class="pulse-dot"></span>
+                <span>Model Aktif</span>
+            </div>
+            <div class="status-pill">
+                📍 Kota Madiun
+            </div>
+            <div class="status-pill" style="background: #F3FDE8; color: #3F6212; border-color: #D9F99D;">
+                ⚡ Groq Llama-3 AI
+            </div>
+            <div class="status-pill">
+                📊 30 Dataset Latih
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. ROW 1: GRID DUA KOLOM (FORM DI KIRI & REKOMENDASI DI KANAN) -->
+    <div class="dashboard-top-grid">
+        
+        <!-- KOLOM KIRI: FORM INPUT -->
+        <div class="card">
+            <div class="section-header">
+                <h2>Filter & Parameter</h2>
+                <p>Sesuaikan kriteria pencarian kos Anda</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- SLIDER JARAK -->
+                <div class="slider-header">
+                    <label for="jarak" style="margin-top: 0;">Jarak ke Kampus</label>
+                    <span class="value-badge"><span id="jarak-val">{{ input.jarak }}</span> km</span>
+                </div>
+                <input 
+                    type="range" 
+                    id="jarak" 
+                    name="jarak" 
+                    min="0.1" 
+                    max="10.0" 
+                    step="0.1" 
+                    value="{{ input.jarak }}" 
+                    oninput="document.getElementById('jarak-val').innerText = this.value"
+                >
+
+                <!-- SLIDER BUDGET MAKSIMAL -->
+                <div class="slider-header" style="margin-top: 14px;">
+                    <label for="budget" style="margin-top: 0;">Maksimal Budget per Bulan</label>
+                    <span class="value-badge"><span id="budget-val">{{ budget_rp }}</span></span>
+                </div>
+                <input 
+                    type="range" 
+                    id="budget" 
+                    name="budget" 
+                    min="500" 
+                    max="1600" 
+                    step="50" 
+                    value="{{ input.budget }}" 
+                    oninput="document.getElementById('budget-val').innerText = 'Rp ' + (Number(this.value) * 1000).toLocaleString('id-ID')"
+                >
+
+                <!-- TOGGLE AC -->
+                <label>Fasilitas AC</label>
+                <div>
+                    <div class="segmented-group">
+                        <label>
+                            <input type="radio" name="ac" value="ya" {% if input.ac == "ya" %}checked{% endif %}>
+                            <span>Ya</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="ac" value="tidak" {% if input.ac == "tidak" %}checked{% endif %}>
+                            <span>Tidak</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- INPUT RATING -->
+                <label for="rating">Rating Kepuasan (1 - 5)</label>
+                <input 
+                    type="number" 
+                    id="rating" 
+                    name="rating" 
+                    step="0.1" 
+                    min="1" 
+                    max="5" 
+                    value="{{ input.rating }}" 
+                    required
+                >
+
+                <button type="submit" class="btn-prediksi">Cari & Filter Kos</button>
+            </form>
+        </div>
+
+        <!-- KOLOM KANAN: HASIL PREDIKSI & REKOMENDASI 5 KOS -->
+        <div class="card">
+            {% if hasil %}
+            <div class="hasil-highlight-box">
+                <div>
+                    <div class="hasil-highlight-label">Hasil Prediksi Model Machine Learning</div>
+                    <div class="hasil-highlight-nominal">{{ hasil }} <span style="font-size: 0.95rem; font-weight: 500; color: var(--text-secondary);">/ bulan</span></div>
+                </div>
+                <div>
+                    <span class="badge-ml-model">Regresi Linier</span>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="section-header">
+                <h2>Rekomendasi Kos Sesuai Budget</h2>
+                <p>
+                    Kos ber-AC <strong>{{ input.ac|capfirst }}</strong> harga &le; <strong>{{ budget_rp }}</strong> (klik judul kolom untuk mengurutkan):
+                </p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table-rekomendasi" id="tabel-rekomendasi">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('tabel-rekomendasi', 0)">Nama Kos <span class="sort-icon">⇅</span></th>
+                            <th onclick="sortTable('tabel-rekomendasi', 1)">Jarak <span class="sort-icon">⇅</span></th>
+                            <th onclick="sortTable('tabel-rekomendasi', 2)">AC <span class="sort-icon">⇅</span></th>
+                            <th onclick="sortTable('tabel-rekomendasi', 3)">Rating <span class="sort-icon">⇅</span></th>
+                            <th onclick="sortTable('tabel-rekomendasi', 4)">Harga Asli <span class="sort-icon">⇅</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in rekomendasi_rows %}
+                        <tr>
+                            <td style="font-weight: 700;">{{ row.0 }}</td>
+                            <td>{{ row.1 }}</td>
+                            <td>
+                                {% if row.2 == "Ya" %}
+                                <span class="badge-ac-ya">Ya</span>
+                                {% else %}
+                                <span class="badge-ac-tidak">Tidak</span>
+                                {% endif %}
+                            </td>
+                            <td class="star-rating">{{ row.3 }}</td>
+                            <td style="font-weight: 700;">{{ row.4 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div> <!-- PENUTUP DASHBOARD TOP GRID (PENTING AGAR TIDAK BOCOR KE BAWAH) -->
+
+    <!-- 3. ROW 2: GRID 2x2 GRAFIK ANALISIS DENGAN PENJELASAN AI -->
+    <div class="charts-section">
+        <div style="margin-bottom: 14px;">
+            <h2 style="font-size: 1.25rem; font-weight: 800; margin: 0 0 4px 0;">📊 Analisis Visual & AI Insight</h2>
+            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Visualisasi data disertai interpretasi naratif otomatis oleh AI (Groq Llama-3):</p>
+        </div>
+
+        <div class="charts-dashboard-grid">
+            {% for item in charts_with_ai %}
+            <div class="chart-box">
+                {{ item.chart|safe }}
+                <div class="ai-insight-box">
+                    <span class="ai-insight-tag">✨ AI Insight:</span>
+                    {{ item.insight }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 4. ROW 3: FULL DATASET TABLE (SEKARANG SUDAH FULL LEBAR LAYAR) -->
+    <div class="card">
+        <div class="section-header">
+            <h2>Semua Data Kos Madiun (30 Data)</h2>
+            <p>Dataset lengkap acuan perhitungan model (klik judul kolom untuk mengurutkan):</p>
+        </div>
+        <div class="table-responsive">
+            <table class="table-semua" id="tabel-semua">
+                <thead>
+                    <tr>
+                        {% for col in tabel_headers %}
+                        <th onclick="sortTable('tabel-semua', '{{ forloop.counter0 }}')">
+                            {{ col }} <span class="sort-icon">⇅</span>
+                        </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in tabel_rows %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>
+                            {% if cell == "Ya" %}
+                            <span class="badge-ac-ya">Ya</span>
+                            {% elif cell == "Tidak" %}
+                            <span class="badge-ac-tidak">Tidak</span>
+                            {% else %}
+                            {{ cell }}
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE UNTUK SORT TABEL -->
+    <script>
+        function sortTable(tableId, colIndex) {
+            colIndex = parseInt(colIndex);
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const th = table.querySelectorAll('thead th')[colIndex];
+
+            const isAsc = th.getAttribute('data-sort') !== 'asc';
+
+            table.querySelectorAll('thead th').forEach(header => {
+                header.removeAttribute('data-sort');
+                const icon = header.querySelector('.sort-icon');
+                if (icon) icon.innerText = '⇅';
+            });
+
+            th.setAttribute('data-sort', isAsc ? 'asc' : 'desc');
+            const currentIcon = th.querySelector('.sort-icon');
+            if (currentIcon) currentIcon.innerText = isAsc ? '▲' : '▼';
+
+            function getCleanVal(cell) {
+                let text = cell.innerText.trim();
+
+                if (text.includes('Rp')) {
+                    let num = text.replace(/[^0-9]/g, '');
+                    return parseFloat(num) || 0;
+                }
+                if (text.includes('km')) {
+                    let num = text.replace('km', '').trim();
+                    return parseFloat(num) || 0;
+                }
+                if (text.includes('⭐')) {
+                    let num = text.replace('⭐', '').trim();
+                    return parseFloat(num) || 0;
+                }
+                let parsed = parseFloat(text);
+                if (!isNaN(parsed) && text.match(/^[0-9.]+$/)) {
+                    return parsed;
+                }
+                return text.toLowerCase();
+            }
+
+            rows.sort((rowA, rowB) => {
+                const valA = getCleanVal(rowA.cells[colIndex]);
+                const valB = getCleanVal(rowB.cells[colIndex]);
+
+                if (typeof valA === 'number' && typeof valB === 'number') {
+                    return isAsc ? valA - valB : valB - valA;
+                }
+                return isAsc
+                    ? valA.toString().localeCompare(valB.toString())
+                    : valB.toString().localeCompare(valA.toString());
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+                // ENGINE ANIMASI SAAT DIGESER KE BAWAH (SCROLL REVEAL)
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToAnimate = document.querySelectorAll('.card, .chart-box, .footer-card');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Animasi berjalan sekali saat pertama kali terlihat
+                    }
+                });
+            }, {
+                threshold: 0.1, // Terpicu saat 10% elemen masuk ke layar
+                rootMargin: '0px 0px -40px 0px' // Offset halus
+            });
+
+            elementsToAnimate.forEach((el) => {
+                el.classList.add('scroll-reveal');
+                observer.observe(el);
+            });
+        });
+    </script>
+
+        <!-- FOOTER MODERN -->
+    <footer class="footer-card">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <span style="font-size: 1.2rem;">🏠</span>
+                    <strong style="color: var(--secondary-accent); font-size: 1rem;">KosMadiun.ai</strong>
+                </div>
+                <p>
+                    Aplikasi web cerdas untuk membantu mahasiswa dan perantau di Kota Madiun mengestimasi tarif sewa kos secara transparan dan menemukan hunian terbaik yang sesuai dengan anggaran serta fasilitas yang dibutuhkan.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h3>Teknologi Digunakan</h3>
+                <div class="footer-tags">
+                    <span class="tech-tag">Python 3</span>
+                    <span class="tech-tag">Django 6</span>
+                    <span class="tech-tag">Scikit-Learn</span>
+                    <span class="tech-tag">Groq Llama-3</span>
+                    <span class="tech-tag">Plotly</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Spesifikasi Data</h3>
+                <p>
+                    <strong>30 Data Kos Terpilih</strong><br>
+                    Evaluasi: 5-Fold Cross Validation<br>
+                    Target: Harga Sewa Bulanan
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>
+                &copy; 2026 <strong>KosMadiun.ai</strong> &bull; Seluruh hak cipta dilindungi.
+            </div>
+            <div>
+                Dirancang dengan standar UI Monetra Dashboard
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
